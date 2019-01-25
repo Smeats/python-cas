@@ -61,10 +61,12 @@ class CASClientBase(object):
 
     def __init__(self, service_url=None, server_url=None,
                  extra_login_params=None, renew=False,
-                 username_attribute=None, verify_ssl_certificate=True):
+                 username_attribute=None, verify_ssl_certificate=True,
+                 verification_server_url=None):
 
         self.service_url = service_url
         self.server_url = server_url
+        self.verification_server_url = verification_server_url if verification_server_url else server_url
         self.extra_login_params = extra_login_params or {}
         self.renew = renew
         self.username_attribute = username_attribute
@@ -131,7 +133,7 @@ class CASClientV1(CASClientBase):
         Returns username on success and None on failure.
         """
         params = [('ticket', ticket), ('service', self.service_url)]
-        url = (urllib_parse.urljoin(self.server_url, 'validate') + '?' +
+        url = (urllib_parse.urljoin(self.verification_server_url, 'validate') + '?' +
                urllib_parse.urlencode(params))
         page = requests.get(
             url,
@@ -172,7 +174,7 @@ class CASClientV2(CASClientBase):
         }
         if self.proxy_callback:
             params.update({'pgtUrl': self.proxy_callback})
-        base_url = urllib_parse.urljoin(self.server_url, self.url_suffix)
+        base_url = urllib_parse.urljoin(self.verification_server_url, self.url_suffix)
         page = requests.get(
             base_url,
             params=params,
