@@ -66,7 +66,7 @@ class CASClientBase(object):
 
         self.service_url = service_url
         self.server_url = server_url
-        self.verification_server_url = verification_server_url if verification_server_url else server_url
+        self.verification_server_url = verification_server_url or server_url
         self.extra_login_params = extra_login_params or {}
         self.renew = renew
         self.username_attribute = username_attribute
