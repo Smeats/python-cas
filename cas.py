@@ -175,6 +175,10 @@ class CASClientV2(CASClientBase):
         if self.proxy_callback:
             params.update({'pgtUrl': self.proxy_callback})
         base_url = urllib_parse.urljoin(self.verification_server_url, self.url_suffix)
+
+        print base_url
+        logger.debug(base_url)
+
         page = requests.get(
             base_url,
             params=params,
