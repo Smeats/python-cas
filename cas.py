@@ -7,6 +7,7 @@ from lxml import etree
 from six.moves.urllib import parse as urllib_parse
 
 logger = logging.getLogger(__name__)
+logger = logging.getLogger('django')
 
 
 class CASError(ValueError):
