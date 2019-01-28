@@ -7,7 +7,6 @@ from lxml import etree
 from six.moves.urllib import parse as urllib_parse
 
 logger = logging.getLogger(__name__)
-logger = logging.getLogger('django')
 
 
 class CASError(ValueError):
@@ -176,10 +175,6 @@ class CASClientV2(CASClientBase):
         if self.proxy_callback:
             params.update({'pgtUrl': self.proxy_callback})
         base_url = urllib_parse.urljoin(self.verification_server_url, self.url_suffix)
-
-        print base_url
-        logger.debug(base_url)
-        raise Exception(base_url)
 
         page = requests.get(
             base_url,
