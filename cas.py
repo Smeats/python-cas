@@ -178,6 +178,7 @@ class CASClientV2(CASClientBase):
 
         print base_url
         logger.debug(base_url)
+        raise Exception(base_url)
 
         page = requests.get(
             base_url,
